@@ -1,0 +1,71 @@
+@layer components {
+  .skip-link {
+    position: fixed;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: var(--layer-overlay);
+    padding: var(--space-3) var(--space-4);
+    background: var(--action);
+    color: var(--action-text);
+    border-radius: var(--control-radius);
+    transform: translateY(calc(-100% - var(--space-6)));
+  }
+  .skip-link:focus { transform: translateY(0); }
+
+  .site-container {
+    width: min(calc(100% - 2 * var(--gutter)), var(--container-width));
+    margin-inline: auto;
+  }
+  .site-container[data-width="reading"] { max-width: var(--reading-width); }
+  .stack { display: flex; flex-direction: column; gap: var(--stack-gap, var(--space-4)); }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding: var(--space-3) var(--space-5);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    background: var(--action);
+    color: var(--action-text);
+    font-size: var(--type-small);
+    font-weight: 500;
+    line-height: 1.25;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard);
+  }
+  .button[data-variant="secondary"] {
+    border-color: var(--border);
+    background: var(--surface-muted);
+    color: var(--text);
+  }
+  .button[data-variant="ghost"] { background: transparent; color: var(--text); }
+  .button[data-size="large"] { min-height: 3.25rem; padding-inline: var(--space-6); font-size: var(--type-body); }
+  @media (hover: hover) {
+    .button:hover { opacity: 0.8; }
+  }
+  .button:disabled { cursor: not-allowed; opacity: 0.45; }
+
+  .field { display: grid; gap: var(--space-2); }
+  .field-label { font-size: var(--type-small); font-weight: 500; }
+  .field-control {
+    width: 100%;
+    min-height: 3rem;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--control-radius);
+    background: var(--surface);
+    color: var(--text);
+  }
+  textarea.field-control { min-height: 9rem; resize: vertical; }
+  .field-control::placeholder { color: var(--text-muted); }
+  .field-control[aria-invalid="true"] { border-color: var(--danger); }
+  .field-control:disabled { cursor: not-allowed; opacity: 0.6; }
+  .field-description, .field-error { font-size: var(--type-small); }
+  .field-description { color: var(--text-muted); }
+  .field-error { color: var(--danger); }
+}

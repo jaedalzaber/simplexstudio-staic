@@ -6,12 +6,23 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "db:check": "tsx scripts/database.ts check",
+    "db:migrate": "tsx scripts/database.ts migrate",
+    "db:verify-contact": "tsx --conditions=react-server scripts/verify-contact.ts",
+    "setup:local": "tsx scripts/setup-local.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "@next/env": "16.4.0",
+    "lenis": "^1.3.26",
     "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
@@ -21,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   },
   "packageManager": "pnpm@12.4.1"

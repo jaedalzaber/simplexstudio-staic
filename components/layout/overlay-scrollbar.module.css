@@ -1,0 +1,31 @@
+.scrollbar {
+  position: fixed;
+  z-index: var(--layer-overlay);
+  inset-block: 6px;
+  inset-inline-end: 2px;
+  width: 12px;
+  background: transparent;
+  opacity: 0.65;
+  touch-action: none;
+  user-select: none;
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.thumb {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 3px;
+  width: 3px;
+  min-height: 32px;
+  border-radius: var(--radius-pill);
+  background: rgb(110 118 132 / 0.6);
+  pointer-events: auto;
+  transition: width var(--duration-fast) var(--ease-standard);
+}
+
+.scrollbar:hover, .scrollbar:focus-visible, .scrollbar[data-dragging="true"] { opacity: 1; }
+.scrollbar:hover .thumb, .scrollbar:focus-visible .thumb, .scrollbar[data-dragging="true"] .thumb { width: 5px; }
+
+/* Explicit because scoped display rules must never override the hidden state. */
+.scrollbar[hidden] { display: none; }

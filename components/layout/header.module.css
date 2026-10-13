@@ -1,0 +1,152 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--layer-header);
+  background: var(--color-paper);
+  transition: background-color var(--duration-base) var(--ease-standard),
+    padding-top var(--duration-base) var(--ease-standard);
+}
+
+.header[data-transparent="true"] { padding-top: 12px; background: transparent; }
+.spacer { height: var(--header-height); }
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: var(--header-height);
+  padding: 20px 0;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
+  border-radius: 4px;
+}
+
+.logo { display: block; width: 92px; height: auto; }
+.navigation { justify-self: center; }
+.list { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.item { position: relative; }
+
+.navLink, .dropdownToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #52565b;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.navLink[aria-current="page"], .dropdownToggle[data-active="true"] { color: var(--color-ink); }
+.chevron { width: 9px; height: 9px; transition: transform var(--duration-fast) var(--ease-standard); }
+.dropdownToggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: -18px;
+  min-width: 210px;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--color-paper);
+  box-shadow: 0 12px 32px rgb(8 11 19 / 0.08);
+  list-style: none;
+  max-height: calc(100dvh - var(--header-height) - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.dropdownLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--color-ink);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.contact {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  min-height: 44px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+}
+
+.contactPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 15px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.dot { width: 5px; height: 5px; flex: 0 0 5px; border-radius: 50%; background: var(--accent); }
+.arrow { width: 14px; height: 14px; flex-shrink: 0; }
+.menuToggle, .mobileContact { display: none; }
+
+@media (hover: hover) {
+  .navLink:hover, .dropdownToggle:hover { color: var(--color-ink); }
+  .dropdownLink:hover { background: var(--surface-muted); }
+  .contact:hover .contactPill { background: #242a35; }
+}
+
+@media (max-width: 799px) {
+  .header[data-transparent="true"] { padding-top: 8px; }
+  .inner { grid-template-columns: 1fr auto; padding: 18px 0; gap: 0 16px; }
+  .brand { grid-column: 1; grid-row: 1; }
+  .menuToggle {
+    display: inline-flex;
+    grid-column: 2;
+    grid-row: 1;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .menuToggle svg { width: 20px; height: 20px; }
+  .desktopContact { display: none; }
+  .navigation { display: none; grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
+  .navigation[data-open="true"] { display: block; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); max-height: calc(100dvh - var(--header-height) - 40px); overflow-y: auto; overscroll-behavior: contain; }
+  .list { display: block; }
+  .navLink, .dropdownToggle { width: 100%; justify-content: space-between; min-height: 48px; font-size: 16px; }
+  .dropdown { position: static; min-width: 0; margin: 0 0 8px; padding: 4px; border: 0; background: rgb(255 255 255 / 0.65); box-shadow: none; }
+  .mobileContact { display: inline-flex; margin-top: 16px; }
+  .mobileContact .contactPill { min-height: 44px; padding-inline: 18px; font-size: 14px; }
+}

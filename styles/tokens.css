@@ -1,0 +1,94 @@
+/* Initial values from the supplied references; refine as sections are built. */
+:root {
+  --color-paper: #ffffff;
+  --color-ink: #080b13;
+  --color-mist: #f3f8fc;
+  --color-slate: #626b7e;
+  --color-blue: #62adf3;
+  --surface: var(--color-paper);
+  --surface-muted: var(--color-mist);
+  --header-height: 94px;
+  --text: var(--color-ink);
+  --text-muted: var(--color-slate);
+  --border: #e3e7ee;
+  --accent: var(--color-blue);
+  --accent-soft: #dfedfc;
+  --action: var(--color-ink);
+  --action-text: var(--color-paper);
+  --focus: #1874bf;
+  --danger: #b42318;
+  /* System stack until the final brand typeface is supplied. */
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-code: "SFMono-Regular", Consolas, monospace;
+  --type-caption: 0.75rem;
+  --type-small: 0.875rem;
+  --type-body: 1rem;
+  --type-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --type-title: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --type-display: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  --tracking-heading: -0.045em;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --section-space: clamp(3rem, 8vw, 8rem);
+  --container-width: 1330px;
+  --reading-width: 48rem;
+  --control-radius: 0.75rem;
+  --panel-radius: 1.5rem;
+  --radius-pill: 999px;
+  --shadow-subtle: 0 2px 12px rgb(8 11 19 / 0.05);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --layer-header: 20;
+  --layer-overlay: 40;
+}
+
+@media (max-width: 799px) {
+  :root { --header-height: 84px; }
+}
+
+/* Dark sections are explicit, independent of the visitor's OS theme. */
+[data-surface="dark"] {
+  --surface: var(--color-ink);
+  --surface-muted: #141922;
+  --text: var(--color-paper);
+  --text-muted: #b4bed0;
+  --border: #343b48;
+  --action: var(--color-paper);
+  --action-text: var(--color-ink);
+  --focus: #88c7ff;
+  --danger: #ffb4ab;
+}
+
+@theme inline {
+  --color-background: var(--surface);
+  --color-foreground: var(--text);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-muted: var(--text-muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-action: var(--action);
+  --color-action-text: var(--action-text);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-code);
+  --text-caption: var(--type-caption);
+  --text-small: var(--type-small);
+  --text-body: var(--type-body);
+  --text-lead: var(--type-lead);
+  --text-title: var(--type-title);
+  --text-display: var(--type-display);
+  --radius-control: var(--control-radius);
+  --radius-panel: var(--panel-radius);
+}
