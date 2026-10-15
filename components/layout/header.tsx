@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
@@ -39,6 +40,7 @@ export function Header() {
   const scrolled = useSyncExternalStore(subscribeToScroll, () => window.scrollY > 12, () => false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const dropdownToggleRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -48,24 +50,27 @@ export function Header() {
   function closeMenus() {
     setMobileOpen(false);
     setOpenDropdown(null);
+    setHoveredDropdown(null);
   }
 
   useEffect(() => {
-    if (!mobileOpen && !openDropdown) return;
+    if (!mobileOpen && !openDropdown && !hoveredDropdown) return;
 
     function onPointerDown(event: PointerEvent) {
       if (event.target instanceof Node && !headerRef.current?.contains(event.target)) {
         setMobileOpen(false);
         setOpenDropdown(null);
+        setHoveredDropdown(null);
       }
     }
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
       event.preventDefault();
-      if (openDropdown) {
-        dropdownToggleRefs.current[openDropdown]?.focus();
+      if (openDropdown || hoveredDropdown) {
+        dropdownToggleRefs.current[openDropdown ?? hoveredDropdown ?? ""]?.focus();
         setOpenDropdown(null);
+        setHoveredDropdown(null);
       } else {
         setMobileOpen(false);
         menuToggleRef.current?.focus();
@@ -78,7 +83,7 @@ export function Header() {
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [mobileOpen, openDropdown]);
+  }, [mobileOpen, openDropdown, hoveredDropdown]);
 
   useEffect(() => {
     // Reset disclosure state when switching between desktop and mobile layouts.
@@ -86,6 +91,7 @@ export function Header() {
     function onBreakpointChange() {
       setMobileOpen(false);
       setOpenDropdown(null);
+      setHoveredDropdown(null);
     }
     breakpoint.addEventListener("change", onBreakpointChange);
     return () => breakpoint.removeEventListener("change", onBreakpointChange);
@@ -102,13 +108,28 @@ export function Header() {
         <nav id={navigationId} className={styles.navigation} aria-label="Main navigation" data-open={mobileOpen} data-lenis-prevent={mobileOpen || undefined}>
           <ul className={styles.list}>
             {primaryNavigation.map((item) => {
-              const expanded = openDropdown === item.label;
+              const expanded = openDropdown === item.label || hoveredDropdown === item.label;
               const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
               const dropdownId = `${id}-${item.label.toLowerCase()}-links`;
+              const preview = item.label === "Capabilities"
+                ? { src: "/images/references/Frame%20381.svg", width: 1379, height: 761 }
+                : item.label === "Services"
+                  ? { src: "/images/references/Frame%20399.svg", width: 1090, height: 907 }
+                  : null;
               return (
                 <li className={styles.item} key={item.label} onBlur={(event) => {
                   if (!event.currentTarget.contains(event.relatedTarget)) {
                     setOpenDropdown((current) => current === item.label ? null : current);
+                    setHoveredDropdown((current) => current === item.label ? null : current);
+                  }
+                }} onMouseEnter={() => {
+                  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && item.children?.length) {
+                    setOpenDropdown(null);
+                    setHoveredDropdown(item.label);
+                  }
+                }} onMouseLeave={() => {
+                  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+                    setHoveredDropdown((current) => current === item.label ? null : current);
                   }
                 }}>
                   {item.children?.length ? (
@@ -120,7 +141,10 @@ export function Header() {
                         aria-expanded={expanded}
                         aria-controls={dropdownId}
                         data-active={active}
-                        onClick={() => setOpenDropdown(expanded ? null : item.label)}
+                        onClick={() => setOpenDropdown((current) => current === item.label ? null : item.label)}
+                        onFocus={(event) => {
+                          if (event.currentTarget.matches(":focus-visible")) setOpenDropdown(item.label);
+                        }}
                         onKeyDown={(event) => {
                           if (event.key === "ArrowDown") {
                             event.preventDefault();
@@ -135,14 +159,13 @@ export function Header() {
                         </svg>
                       </button>
                       <ul id={dropdownId} className={styles.dropdown} hidden={!expanded} data-lenis-prevent>
-                        {item.children.map((child) => (
-                          <li key={child.href}>
-                            <Link href={child.href} className={styles.dropdownLink} aria-current={pathname === child.href ? "page" : undefined} onClick={closeMenus}>
-                              {child.label}
-                              <Arrow />
+                        <li className={styles.dropdownPanel}>
+                          {preview && (
+                            <Link href={item.href} className={styles.dropdownArtwork} aria-label={`Explore ${item.label}`} onClick={closeMenus}>
+                              <Image src={preview.src} width={preview.width} height={preview.height} alt="" />
                             </Link>
-                          </li>
-                        ))}
+                          )}
+                        </li>
                       </ul>
                     </>
                   ) : (

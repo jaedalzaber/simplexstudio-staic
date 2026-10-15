@@ -52,26 +52,45 @@
   transition: color var(--duration-fast) var(--ease-standard);
 }
 
+.dropdownToggle { position: relative; isolation: isolate; }
+.dropdownToggle::before {
+  position: absolute;
+  z-index: -1;
+  inset: 2px -12px;
+  background: url('/images/references/Union.svg') center / 100% 100% no-repeat;
+  content: "";
+  opacity: 0;
+  filter: drop-shadow(0 3px 8px rgb(8 11 19 / 0.14));
+  transform: scale(.96);
+  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  pointer-events: none;
+}
+.dropdownToggle:hover::before, .dropdownToggle[aria-expanded="true"]::before, .dropdownToggle:focus-visible::before { opacity: 1; transform: scale(1); }
+
 .navLink[aria-current="page"], .dropdownToggle[data-active="true"] { color: var(--color-ink); }
 .chevron { width: 9px; height: 9px; transition: transform var(--duration-fast) var(--ease-standard); }
 .dropdownToggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 8px);
-  left: -18px;
-  min-width: 210px;
+  top: 100%;
+  left: 50%;
+  width: min(520px, calc(100vw - 32px));
+  min-width: 0;
   margin: 0;
-  padding: 8px;
-  border: 1px solid var(--border);
-  border-radius: var(--control-radius);
-  background: var(--color-paper);
-  box-shadow: 0 12px 32px rgb(8 11 19 / 0.08);
+  padding: 8px 0 0;
+  transform: translateX(-50%);
+  border: 0;
+  background: transparent;
   list-style: none;
   max-height: calc(100dvh - var(--header-height) - 32px);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+
+.dropdownPanel { margin: 0; padding: 0; list-style: none; }
+.dropdownArtwork { display: block; width: 100%; border-radius: 12px; outline-offset: 4px; }
+.dropdownArtwork img { display: block; width: 100%; height: auto; }
 
 .dropdownLink {
   display: flex;
@@ -146,7 +165,7 @@
   .navigation[data-open="true"] { display: block; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); max-height: calc(100dvh - var(--header-height) - 40px); overflow-y: auto; overscroll-behavior: contain; }
   .list { display: block; }
   .navLink, .dropdownToggle { width: 100%; justify-content: space-between; min-height: 48px; font-size: 16px; }
-  .dropdown { position: static; min-width: 0; margin: 0 0 8px; padding: 4px; border: 0; background: rgb(255 255 255 / 0.65); box-shadow: none; }
+  .dropdown { position: static; width: auto; min-width: 0; margin: 0 0 8px; padding: 4px; transform: none; border: 0; background: transparent; box-shadow: none; }
   .mobileContact { display: inline-flex; margin-top: 16px; }
   .mobileContact .contactPill { min-height: 44px; padding-inline: 18px; font-size: 14px; }
 }
