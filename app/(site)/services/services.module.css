@@ -96,7 +96,7 @@
 .bookCallLight i { width: 7px; height: 7px; border-radius: 50%; background: var(--service-blue); }
 .bookCallLight b { font-size: 20px; font-weight: 500; line-height: 1; }
 .processSteps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; min-height: 290px; margin: clamp(48px, 7vw, 92px) calc(clamp(22px, 4vw, 52px) * -1) 0; padding: 0 clamp(22px, 4vw, 52px); list-style: none; background: radial-gradient(ellipse at 50% 115%, #74bdf5a8, transparent 37%), radial-gradient(ellipse at 8% 118%, #3181c744, transparent 32%); }
-.sectionEndArt { display: block; width: calc(100% + 2 * clamp(22px, 4vw, 52px)); height: auto; margin-inline: calc(clamp(22px, 4vw, 52px) * -1); }
+.sectionEndArt { display: block; width: calc(100% + 2 * clamp(22px, 4vw, 52px)); height: auto; margin-inline: calc(clamp(22px, 4vw, 52px) * -1); border-radius: 0 0 clamp(18px, 2.3vw, 30px) clamp(18px, 2.3vw, 30px); }
 .processSteps::before { position: absolute; top: 208px; right: 0; left: 0; height: 1px; background: #66768b77; content: ""; }
 .processSteps li { position: relative; min-width: 0; }
 .processSteps li::before { position: absolute; top: 104px; bottom: 81px; left: 0; width: 1px; background: linear-gradient(to bottom, transparent, #66768b66); content: ""; }
