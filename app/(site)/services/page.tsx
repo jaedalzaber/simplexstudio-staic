@@ -129,15 +129,6 @@ export default function ServicesPage() {
             </li>
           ))}
         </ol>
-        <Image
-          className={styles.sectionEndArt}
-          src="/images/services/image 533.svg"
-          alt=""
-          aria-hidden="true"
-          width={1600}
-          height={299}
-          sizes="100vw"
-        />
       </section>
     </div>
   );
