@@ -1,0 +1,218 @@
+.band {
+  position: relative;
+  isolation: isolate;
+  margin: var(--section-gap) var(--band-inset) 0;
+  padding-top: clamp(72px, 7.3vw, 105px);
+  overflow: clip;
+  border-radius: var(--panel-radius-xl) var(--panel-radius-xl) 0 0;
+  background: var(--color-night);
+  color: var(--color-paper);
+}
+
+/* Reference artwork: faint monogram and a cold light in the top-right corner. */
+.glow {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  aspect-ratio: 1391 / 412;
+  background: url("/images/backgrounds/services-top.webp") center top / 100% auto no-repeat;
+  mask-image: linear-gradient(180deg, #000 70%, transparent);
+  animation: breathe 10s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes breathe {
+  0% { opacity: 0.8; filter: brightness(0.95); }
+  100% { opacity: 1; filter: brightness(1.15); }
+}
+
+.content { position: relative; }
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: end;
+  gap: 32px clamp(32px, 6vw, 96px);
+}
+
+.head h2 {
+  margin: clamp(18px, 2.2vw, 32px) 0 0;
+  font-size: clamp(2.3rem, 4.2vw, 3.75rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.head p {
+  max-width: 500px;
+  margin: 0 0 4px;
+  color: #e3e6eb;
+  font-size: clamp(14px, 1.12vw, 16px);
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.5vw, 22px);
+  margin-top: clamp(48px, 6vw, 87px);
+  perspective: 1400px;
+}
+
+.card {
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: clamp(400px, 33.5vw, 484px);
+  flex-direction: column;
+  padding: clamp(26px, 2.65vw, 38px);
+  border-radius: clamp(20px, 1.8vw, 26px);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.025), rgb(255 255 255 / 0) 70%);
+  transform-style: preserve-3d;
+}
+
+/* Hairline outline that fades out toward the bottom and catches the pointer. */
+.card::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background:
+    radial-gradient(240px circle at var(--mx) var(--my), rgb(120 185 245 / 0.7), transparent 70%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.2), rgb(255 255 255 / 0.06) 55%, rgb(255 255 255 / 0.02));
+  content: "";
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.card::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(380px circle at var(--mx) var(--my), rgb(100 170 232 / 0.09), transparent 50%);
+  content: "";
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+.grid:hover .card::after { opacity: 1; }
+
+.cardTop { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+
+.tag {
+  position: relative;
+  display: inline-flex;
+  min-height: clamp(38px, 3vw, 44px);
+  align-items: center;
+  padding: 0 clamp(16px, 1.8vw, 26px);
+  border-radius: var(--radius-pill);
+  background: #0d111b;
+  color: var(--color-paper);
+  font-size: clamp(13px, 1.2vw, 17px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tag::before {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--tag-angle, 200deg), #5d86c0, #2a3550 30%, #6aa6e6 55%, #2a3550 80%, #5d86c0);
+  content: "";
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+@property --tag-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 200deg;
+}
+
+.number { color: #8b909b; font-size: clamp(16px, 1.4vw, 20px); letter-spacing: -0.02em; }
+
+.card h3 {
+  margin: clamp(44px, 5.2vw, 74px) 0 clamp(16px, 1.5vw, 22px);
+  font-size: clamp(1.6rem, 2.4vw, 2.15rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.card p {
+  max-width: 330px;
+  margin: 0 0 32px;
+  color: #e3e6eb;
+  font-size: clamp(14px, 1.12vw, 16px);
+  line-height: 1.5;
+}
+
+.pill { margin-top: auto; }
+
+.cta {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: clamp(380px, 40vw, 556px);
+  align-content: center;
+  justify-items: center;
+  gap: clamp(32px, 4.2vw, 60px);
+  margin-top: clamp(80px, 12vw, 176px);
+  padding: 24px 24px 7%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.wave {
+  position: absolute;
+  z-index: -1;
+  inset: 0 -2px;
+  background: url("/images/backgrounds/cta-wave.webp") center / 100% 100% no-repeat;
+  transform-origin: 50% 100%;
+  animation: swell 14s var(--ease-in-out) infinite alternate;
+}
+
+/* Fade the artwork's lower edge cleanly into the page. */
+.wave::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 28%;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0), var(--color-paper));
+  content: "";
+}
+
+@keyframes swell {
+  0% { transform: scale(1, 1); }
+  100% { transform: scale(1.05, 1.1); }
+}
+
+.cta h2 {
+  margin: 0;
+  font-size: clamp(2.3rem, 4.2vw, 3.75rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-shadow: 0 2px 24px rgb(8 11 19 / 0.25);
+}
+
+@media (hover: hover) {
+  .card:hover .tag::before { animation: spin 3s linear infinite; }
+}
+
+@keyframes spin { to { --tag-angle: 560deg; } }
+
+@media (max-width: 899px) {
+  .head { grid-template-columns: 1fr; }
+  .head h2 br { display: none; }
+  .grid { grid-template-columns: 1fr; }
+  .card { min-height: 360px; }
+  .wave { background-size: cover; }
+}

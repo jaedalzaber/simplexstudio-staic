@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
+import { PillLink } from "@/components/ui/pill-link";
+import { pages } from "@/content/pages";
 import { pageMetadata } from "@/lib/metadata";
 import { ProjectsCarousel } from "./projects-carousel";
 import styles from "./services.module.css";
@@ -23,11 +24,7 @@ const approach = [
 const process = ["01", "02", "03", "04"];
 
 function BookCallLink({ light = false }: { light?: boolean }) {
-  return (
-    <Link className={`${styles.bookCall} ${light ? styles.bookCallLight : ""}`} href="/contact" aria-label="Book a call">
-      {light ? <><i aria-hidden="true" /><span>Book a call</span><b aria-hidden="true">↗</b></> : <Image src="/images/services/book-call.svg" alt="" width={233} height={63} />}
-    </Link>
-  );
+  return <PillLink href={pages.contact.path} tone={light ? "light" : "dark"} size={light ? "md" : "lg"}>Book a call</PillLink>;
 }
 
 export default function ServicesPage() {

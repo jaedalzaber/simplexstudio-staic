@@ -1,0 +1,89 @@
+.process {
+  display: grid;
+  grid-template-columns: minmax(0, 1.03fr) minmax(0, 1fr);
+  gap: clamp(24px, 2.2vw, 31px);
+}
+
+.copy { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; gap: 48px; container-type: inline-size; }
+
+.word {
+  margin: -0.02em 0 0 -0.04em;
+  color: var(--color-ink);
+  /* Fill the column whatever the fallback font's width. */
+  font-size: min(20.6cqi, 9.6rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.82;
+}
+
+.steps { margin: 0; padding: 0 0 6px; list-style: none; }
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(48px, 5vw, 73px) minmax(0, 1fr);
+  padding: clamp(20px, 2vw, 28px) 0;
+}
+.step + .step { border-top: 1px solid #f0f1f3; }
+
+/* Progress rule that sweeps along the top of the active step. */
+.step::before {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-dot), rgb(100 170 232 / 0));
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms var(--ease-out-expo);
+}
+
+.index { padding-top: 2px; color: #8b8f99; font-size: clamp(14px, 1.15vw, 17px); font-variant-numeric: tabular-nums; transition: color 500ms ease; }
+
+.step h3 {
+  margin: 0 0 clamp(10px, 1.1vw, 16px);
+  color: #222;
+  font-size: clamp(16px, 1.25vw, 18px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: color 500ms ease;
+}
+
+.step p {
+  max-width: 540px;
+  margin: 0;
+  color: #6b6f76;
+  font-size: clamp(14px, 1.12vw, 16px);
+  line-height: 1.7;
+  transition: color 500ms ease;
+}
+
+.process[data-enhanced] .step h3 { color: #9a9ea6; }
+.process[data-enhanced] .step p { color: #b7bbc2; }
+.process[data-enhanced] .step[data-active] h3 { color: #222; }
+.process[data-enhanced] .step[data-active] p { color: #6b6f76; }
+.process[data-enhanced] .step[data-active] .index { color: var(--color-dot); }
+.process[data-enhanced] .step[data-active]::before { transform: scaleX(1); }
+
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(18px, 1.8vw, 26px);
+  background: #c9d7de;
+}
+
+.media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 653 / 979;
+  object-fit: cover;
+  transform-origin: 50% 50%;
+}
+
+@media (max-width: 899px) {
+  .process { grid-template-columns: 1fr; }
+  .media { max-height: 80svh; }
+}

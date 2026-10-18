@@ -1,17 +1,20 @@
 # Design system foundation
 
 The shared header follows the supplied reference, including the brand logo,
-navigation dropdowns, contact link, and responsive mobile disclosure. Navigation
-labels and dropdown items live in `config/navigation.ts`. Page bodies remain
-empty; marketing sections and the footer will be built separately.
+mega menus, contact link, and responsive mobile disclosure. Navigation labels,
+the Capabilities groups (with their icons from `public/icons`), the Solutions
+image grid, and the footer columns live in `config/navigation.ts`. The footer
+is shared by every page through `SiteShell`.
 
-The header is fixed: it is transparent at the top of the home page, overlays
-the future cover, and becomes opaque white after 12 pixels of scrolling.
-Other pages and the expanded mobile menu use white. Header spacing is reserved
-on other pages; future home cover content should start at the top of `main`.
+The header is fixed: it is transparent at the top of the home page, where it
+sits inside the hero panel, and becomes a frosted white bar after 12 pixels of
+scrolling. It slides away while scrolling down and returns on any upward
+scroll. Open menus join their toggle with a white folder tab. Header spacing is
+reserved on other pages; home cover content starts at the top of `main`.
 
 `ScrollProvider` supplies a single root Lenis instance with wheel smoothing,
-native touch scrolling, anchor support, and reduced-motion handling. The slim
+native touch scrolling, anchor support, and reduced-motion handling. GSAP's
+ticker drives Lenis so ScrollTrigger and smooth scrolling share one frame. The slim
 scrollbar overlays the page with a transparent track and supports dragging and
 keyboard navigation. It appears only when content overflows the viewport;
 native scrollbar chrome is hidden after this replacement mounts. Horizontal
@@ -57,7 +60,31 @@ Primitives have no global client boundary. Import them into a Client Component
 when event handlers or browser state are needed. Button targets are at least
 44 pixels; focus indicators and reduced-motion support are included.
 
-Keep future section data in `content/` and markup in `components/sections/`.
+- `PillLink`: the reference "Book a call" capsule (dot, rolling label, flying
+  arrow, magnetic pull); `tone` dark/light, `size` sm/md/lg.
+- `ServicePill`: "View Service" capsule whose artwork fades in and whose arrow
+  knob travels across on hover; light and dark tones.
+- `Eyebrow`: dot-led uppercase section label.
+
+Keep section data in `content/` and markup in `components/sections/`.
 Compose sections in pages. Reuse semantic tokens and primitives; use isolated
-CSS Modules for section-specific layouts. Complex interactive components will
-be added when their sections are requested.
+CSS Modules for section-specific layouts.
+
+## Motion
+
+Import GSAP only through `lib/gsap.ts`, which registers ScrollTrigger and
+SplitText once. Wrap animations in `gsap.matchMedia()` with `motionQuery` so
+nothing moves for visitors who prefer reduced motion; Motion (`motion/react`)
+follows the same preference through `MotionConfig`.
+
+For scroll entrances in server-rendered markup, wrap the section in
+`RevealScope` and mark descendants with `data-reveal` (`up`, `lines`,
+`stagger`, `scale`, `fade`) plus optional `data-reveal-delay`. Animations are
+scoped to that subtree so they never touch DOM that has not hydrated yet;
+content stays visible without JavaScript. Above-the-fold hero entrances use
+CSS keyframes so they play before hydration.
+
+Section backgrounds come from the artwork in `public/section`, rendered to
+compact WebP files in `public/images/backgrounds`. The home showreel plays
+`/videos/showreel.webm` or `/videos/showreel.mp4` when present and shows the
+dashboard poster frame until then.

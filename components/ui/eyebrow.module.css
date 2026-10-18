@@ -1,0 +1,29 @@
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(12px, 1.3vw, 19px);
+  color: var(--color-ink);
+  font-size: clamp(13px, 1.2vw, 17px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.eyebrow[data-tone="light"] { color: var(--color-paper); }
+
+.eyebrow i {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background: var(--color-dot);
+  box-shadow: 0 0 0 0 rgb(100 170 232 / 0.5);
+  animation: beacon 2.8s var(--ease-out-expo) infinite;
+}
+
+@keyframes beacon {
+  0% { box-shadow: 0 0 0 0 rgb(100 170 232 / 0.45); }
+  70%, 100% { box-shadow: 0 0 0 9px rgb(100 170 232 / 0); }
+}

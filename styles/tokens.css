@@ -5,6 +5,12 @@
   --color-mist: #f3f8fc;
   --color-slate: #626b7e;
   --color-blue: #62adf3;
+  --color-night: #090c13;
+  --color-dot: #64aae8;
+  --color-sky: #eef4fe;
+  --color-sky-deep: #dae8fc;
+  --color-grey: #868b9d;
+  --color-line: #ebedf1;
   --surface: var(--color-paper);
   --surface-muted: var(--color-mist);
   --header-height: 94px;
@@ -17,8 +23,8 @@
   --action-text: var(--color-paper);
   --focus: #1874bf;
   --danger: #b42318;
-  /* System stack until the final brand typeface is supplied. */
-  --font-body: Arial, Helvetica, sans-serif;
+  /* The reference is set in Helvetica Neue; Arial is the metric-compatible fallback. */
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-code: "SFMono-Regular", Consolas, monospace;
   --type-caption: 0.75rem;
   --type-small: 0.875rem;
@@ -47,7 +53,15 @@
   --shadow-subtle: 0 2px 12px rgb(8 11 19 / 0.05);
   --duration-fast: 150ms;
   --duration-base: 250ms;
+  --duration-slow: 700ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Full-bleed panels sit inside the viewport with a small inset, as in the reference. */
+  --panel-inset: clamp(8px, 1.05vw, 15px);
+  --band-inset: clamp(8px, 1.75vw, 25px);
+  --panel-radius-xl: clamp(20px, 2.1vw, 30px);
+  --section-gap: clamp(72px, 9vw, 140px);
   --layer-header: 20;
   --layer-overlay: 40;
 }

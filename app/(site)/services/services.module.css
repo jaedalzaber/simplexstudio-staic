@@ -21,10 +21,6 @@
 .eyebrow, .darkEyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 600; letter-spacing: .015em; }
 .eyebrow i, .darkEyebrow i { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: var(--service-blue); }
 .apartmentArt { display: block; width: min(100%, 610px); height: auto; margin: 20px 0 22px; border-radius: 18px; }
-.bookCall { display: inline-flex; width: min(233px, 100%); min-height: 63px; align-items: center; border-radius: 999px; transition: transform 180ms ease, opacity 180ms ease; }
-.bookCall:hover { opacity: .85; transform: translateY(-2px); }
-.bookCall img { display: block; width: 100%; height: auto; }
-.bookCall:focus-visible { outline: 3px solid var(--service-blue); outline-offset: 4px; }
 .capabilities h1 { margin: 0 0 24px; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 450; letter-spacing: -.065em; line-height: 1.05; }
 .capabilityList { border-top: 1px solid #d9dfe7; }
 .capability { border-bottom: 1px solid #d9dfe7; }
@@ -92,9 +88,6 @@
 .processIntro > div { max-width: 660px; }
 .processIntro h2 { margin: 0 0 16px; }
 .processIntro p { max-width: 590px; margin: 0 0 20px; color: #c0c9d6; font-size: 13px; line-height: 1.55; }
-.bookCallLight { width: fit-content; min-width: 204px; min-height: 55px; justify-content: center; gap: 12px; padding: 0 18px; background: #fff; color: #080a12; font-size: 13px; font-weight: 550; text-decoration: none; }
-.bookCallLight i { width: 7px; height: 7px; border-radius: 50%; background: var(--service-blue); }
-.bookCallLight b { font-size: 20px; font-weight: 500; line-height: 1; }
 .processSteps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; min-height: 290px; margin: clamp(48px, 7vw, 92px) calc(clamp(22px, 4vw, 52px) * -1) calc(clamp(32px, 4vw, 52px) * -1); padding: 0 clamp(22px, 4vw, 52px); list-style: none; background: radial-gradient(ellipse at 50% 115%, #74bdf5a8, transparent 37%), radial-gradient(ellipse at 8% 118%, #3181c744, transparent 32%); }
 .processSteps::before { position: absolute; top: 208px; right: 0; left: 0; height: 1px; background: #66768b77; content: ""; }
 .processSteps li { position: relative; min-width: 0; }
@@ -195,5 +188,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bookCall, .capability summary i::after, .carouselControls button { transition: none; }
+  .capability summary i::after, .carouselControls button { transition: none; }
 }

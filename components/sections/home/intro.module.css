@@ -1,0 +1,85 @@
+.intro {
+  position: relative;
+  isolation: isolate;
+  margin: 0 var(--panel-inset);
+  padding: clamp(84px, 10.5vw, 152px) 0 clamp(56px, 5vw, 72px);
+  border-radius: var(--panel-radius-xl) var(--panel-radius-xl) 0 0;
+  background: linear-gradient(180deg, #e6f0fe 0, #edf4fe 90px, #f6f9ff 190px, #fdfeff 270px, var(--color-paper) 340px);
+}
+
+/* Pixel grain that dissolves into white, like the reference's top edge. */
+.intro::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: 300px;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.62 0 0 0 0 0.92 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  content: "";
+  opacity: 0.16;
+  mask-image: linear-gradient(180deg, #000, transparent);
+  pointer-events: none;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.statement {
+  max-width: 1240px;
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(1.6rem, 3.33vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.45;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px 20px;
+  margin: clamp(56px, 6.5vw, 92px) 0 0;
+}
+
+.stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: clamp(14px, 1.6vw, 24px); }
+
+.stat dd {
+  position: relative;
+  margin: 0;
+  padding-left: clamp(14px, 1.4vw, 20px);
+  color: var(--color-ink);
+  font-size: clamp(2.4rem, 4.2vw, 3.75rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.stat dd::before {
+  position: absolute;
+  top: -0.05em;
+  bottom: -0.05em;
+  left: 0;
+  width: 1px;
+  background: #e3e6eb;
+  content: "";
+}
+
+.stat dt {
+  max-width: 190px;
+  padding-left: clamp(14px, 1.4vw, 20px);
+  color: #8a94a0;
+  font-size: clamp(13px, 1.25vw, 18px);
+  letter-spacing: -0.01em;
+  line-height: 1.28;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

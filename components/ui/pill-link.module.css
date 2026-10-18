@@ -1,0 +1,139 @@
+.pill {
+  --pill-height: clamp(54px, 4.4vw, 63px);
+  --pill-font: clamp(17px, 1.4vw, 20px);
+  --pill-pad: clamp(24px, 2.3vw, 34px);
+  --pill-bg: var(--color-ink);
+  --pill-bg-hover: #1b2130;
+  --pill-text: var(--color-paper);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-height: var(--pill-height);
+  flex-shrink: 0;
+  align-items: center;
+  gap: clamp(14px, 1.3vw, 19px);
+  padding: 0 calc(var(--pill-pad) - 6px) 0 var(--pill-pad);
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  font-size: var(--pill-font);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px -12px rgb(8 11 19 / 0.45);
+  transition: background-color 400ms var(--ease-out-expo), box-shadow 400ms var(--ease-out-expo);
+  will-change: transform;
+}
+
+/* A soft sheen sweeps across on hover. */
+.pill::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.14) 50%, transparent 70%);
+  content: "";
+  transform: translateX(-120%);
+  transition: transform 900ms var(--ease-out-expo);
+}
+
+.pill[data-tone="light"] {
+  --pill-bg: var(--color-paper);
+  --pill-bg-hover: #eef4fe;
+  --pill-text: var(--color-ink);
+  box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.5);
+}
+.pill[data-tone="light"]::before { background: linear-gradient(105deg, transparent 30%, rgb(100 170 232 / 0.18) 50%, transparent 70%); }
+
+.pill[data-size="md"] {
+  --pill-height: 48px;
+  --pill-font: 17px;
+  --pill-pad: 24px;
+  gap: 14px;
+}
+
+.pill[data-size="sm"] {
+  --pill-height: 46px;
+  --pill-font: 15px;
+  --pill-pad: 24px;
+  gap: 12px;
+}
+
+.dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background: var(--color-dot);
+}
+.pill[data-size="sm"] .dot { width: 8px; height: 8px; flex-basis: 8px; }
+
+.dot::after {
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--color-dot);
+  border-radius: inherit;
+  content: "";
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.label {
+  position: relative;
+  display: block;
+  height: 1.2em;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.labelTrack {
+  position: relative;
+  display: block;
+  transition: transform 650ms var(--ease-out-expo);
+}
+
+.labelTrack::after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  content: attr(data-text);
+}
+
+.arrow {
+  position: relative;
+  display: grid;
+  width: 1.1em;
+  height: 1.1em;
+  overflow: hidden;
+}
+
+.arrow svg {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  transition: transform 650ms var(--ease-out-expo);
+}
+.arrow svg:last-child { transform: translate(-110%, 110%); }
+
+@media (hover: hover) {
+  .pill:hover { background: var(--pill-bg-hover); box-shadow: 0 16px 36px -14px rgb(8 11 19 / 0.55); }
+  .pill:hover::before { transform: translateX(120%); }
+  .pill:hover .labelTrack { transform: translateY(-100%); }
+  .pill:hover .arrow svg:first-child { transform: translate(110%, -110%); }
+  .pill:hover .arrow svg:last-child { transform: translate(0, 0); }
+  .pill:hover .dot::after { animation: pulse 1.4s var(--ease-out-expo) infinite; }
+}
+
+.pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+@keyframes pulse {
+  0% { opacity: 0.9; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill::before { display: none; }
+}

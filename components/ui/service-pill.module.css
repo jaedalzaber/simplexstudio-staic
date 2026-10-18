@@ -1,0 +1,111 @@
+.pill {
+  --pill-h: clamp(60px, 4.9vw, 70px);
+  --knob: calc(var(--pill-h) - 7px);
+  --inset: 3.5px;
+  --pill-bg: #f3f7fd;
+  --pill-border: transparent;
+  --text: #aebacd;
+  --line: #ccd5e2;
+  --knob-bg: var(--color-ink);
+  --knob-fg: var(--color-paper);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  width: 100%;
+  max-width: 356px;
+  height: var(--pill-h);
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--pill-border);
+  border-radius: var(--radius-pill);
+  background: var(--pill-bg);
+  color: var(--text);
+  text-decoration: none;
+  container-type: inline-size;
+  transition: border-color 500ms var(--ease-out-expo), box-shadow 500ms var(--ease-out-expo);
+}
+
+.pill[data-tone="dark"] {
+  --pill-bg: linear-gradient(180deg, #11141c, #0c0f16);
+  --pill-border: #222837;
+  --text: #e8ebf1;
+  --line: #2a3142;
+  --knob-bg: var(--color-paper);
+  --knob-fg: var(--color-ink);
+}
+
+.media {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.18);
+  transition: opacity 600ms var(--ease-out-expo), transform 900ms var(--ease-out-expo);
+}
+.media img { object-fit: cover; }
+.media::after { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(8 10 18 / 0.62), rgb(8 10 18 / 0.38)); content: ""; }
+
+.text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-left: calc(var(--knob) + 12px);
+  padding-right: 14px;
+  font-size: clamp(14px, 1.15vw, 16px);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: color 500ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+}
+
+.text i {
+  display: block;
+  width: clamp(24px, 4vw, 58px);
+  height: 1px;
+  background: var(--line);
+  transform-origin: center;
+  transition: transform 600ms var(--ease-out-expo), opacity 400ms ease;
+}
+
+.knob {
+  position: absolute;
+  top: var(--inset);
+  left: var(--inset);
+  display: grid;
+  width: var(--knob);
+  height: var(--knob);
+  place-items: center;
+  border-radius: 50%;
+  background: var(--knob-bg);
+  color: var(--knob-fg);
+  transition: transform 800ms var(--ease-out-expo), background-color 500ms var(--ease-out-expo), color 500ms var(--ease-out-expo);
+}
+.knob > svg:last-child { width: 44%; height: 44%; transition: transform 600ms var(--ease-out-expo); }
+
+/* Thick progress ring that wraps the knob once it settles on the right. */
+.ring {
+  position: absolute;
+  inset: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  fill: none;
+  stroke: rgb(255 255 255 / 0.32);
+  stroke-width: 5;
+  stroke-dasharray: 227;
+  stroke-dashoffset: 227;
+  transform: rotate(-90deg);
+  transition: stroke-dashoffset 900ms var(--ease-out-expo) 120ms;
+}
+
+@media (hover: hover) {
+  .pill:hover .media { opacity: 1; transform: scale(1); }
+  .pill:hover .text { color: var(--color-paper); transform: translateX(calc(-0.5 * var(--knob))); }
+  .pill:hover .text i { opacity: 0; transform: scaleX(0); }
+  .pill:hover .knob { background: var(--color-paper); color: var(--color-ink); transform: translateX(calc(100cqw - 100% - 2 * var(--inset) - 2px)); }
+  .pill:hover .knob > svg:last-child { transform: translateX(2px); }
+  .pill:hover .ring { stroke-dashoffset: 0; }
+  .pill[data-tone="dark"]:hover { border-color: #3a4560; box-shadow: 0 0 0 1px rgb(100 170 232 / 0.12), 0 12px 40px -12px rgb(100 170 232 / 0.35); }
+}
+
+.pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }

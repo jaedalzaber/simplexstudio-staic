@@ -1,0 +1,42 @@
+.showreel {
+  padding: clamp(40px, 4.5vw, 64px) var(--band-inset) 0;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--panel-radius-xl);
+  background: #121512;
+  box-shadow: 0 40px 80px -40px rgb(8 11 19 / 0.35);
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.media {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1390 / 810;
+  object-fit: cover;
+  transform-origin: 50% 50%;
+}
+
+.control {
+  position: absolute;
+  right: clamp(14px, 2vw, 28px);
+  bottom: clamp(14px, 2vw, 28px);
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 50%;
+  background: rgb(8 10 18 / 0.45);
+  color: var(--color-paper);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: transform 500ms var(--ease-out-expo), background-color 300ms ease;
+}
+.control svg { width: 20px; height: 20px; }
+.control:hover { background: rgb(8 10 18 / 0.7); transform: scale(1.08); }
+.control:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
