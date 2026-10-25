@@ -38,38 +38,64 @@ tests/               Contact validation and HTTP behavior
 ## Content workflow
 
 `content/pages.ts` holds route titles, optional descriptions, and publication
-status. Expertise, services, work, and pricing are empty typed collections.
-Add approved content there instead of hardcoding copy in JSX. Related records
-refer to each other by slug. No projects, prices, statistics, or testimonials
-are invented, and there is no CMS or admin UI.
+status. Expertise, services, and pricing are empty typed collections.
+`content/work.ts`, `content/about.ts`, `content/contact.ts`, and
+`content/home.ts` hold the copy from the supplied designs; comments mark copy
+that the design itself repeats as a placeholder. Add approved content there
+instead of hardcoding copy in JSX. Related records refer to each other by slug.
+There is no CMS or admin UI.
+
+Image positions are `ImageSlot`s. Without a `src` they render a grey
+placeholder of the same proportions; add the path to show the real image.
 
 Pages start as drafts with indexing disabled. Once a page has real content,
 mark it `published`. At launch set the real `SITE_URL` and
 `SITE_INDEXABLE=true`. Both that setting and page status gate indexing; the
 sitemap includes only published pages. Content/metadata edits require a rebuild.
 
-## Future detail routes
+## Detail routes
 
-Add `/expertise/[slug]`, `/services/[slug]`, and `/work/[slug]` with approved
+`/work/[slug]` exists: every published work entry with a `study` gets a page,
+listed by `generateStaticParams` and added to the sitemap once the Work page is
+published. The page shell (sky, back link) renders without `params`; the
+slug-dependent study streams inside `<Suspense>` so client navigations stay
+instant, as Next.js validates in development.
+
+`/blog/[slug]` works the same way: posts in `content/blog.ts` with a `body`
+get an article page; the rest appear on the `/blog` listing only. Article
+bodies are typed blocks (paragraph, heading, list, figure, video, callout);
+headings feed the table of contents. Each article also emits `BlogPosting`
+JSON-LD.
+
+`/services/[slug]` holds one page per solution in `content/solutions.ts`
+(eCommerce, Real Estate, and so on). eCommerce and Real Estate have their own
+full pages (`app/(site)/services/ecommerce` and `.../real-estate`, marked
+`ownPage`); the old `/services/property-management` URL redirects permanently to
+`/services/real-estate` (see `next.config.ts`). The others are deliberately
+blank for now, a hero with the name only, and stay out of search results until the
+Services page is published. The same file feeds the home Solutions section and
+the header Solutions menu.
+
+Add `/expertise/[slug]` the same way with approved
 detail content. Cache Components requires at least one complete static parameter
-set, so no empty dynamic route is mounted now. Once there is a published entry:
+set, so no empty dynamic route is mounted. Once there is a published entry:
 
 ```tsx
-// app/(site)/services/[slug]/page.tsx
+// app/(site)/expertise/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { services } from "@/content/services";
+import { expertise } from "@/content/expertise";
 import { publishedEntries, publishedEntry } from "@/content/collections";
 
 export function generateStaticParams() {
-  return publishedEntries(services).map(({ slug }) => ({ slug }));
+  return publishedEntries(expertise).map(({ slug }) => ({ slug }));
 }
 
-export default async function ServicePage({
+export default async function ExpertisePage({
   params,
 }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = publishedEntry(services, slug);
-  if (!service) notFound();
+  const entry = publishedEntry(expertise, slug);
+  if (!entry) notFound();
   // Compose approved sections here.
   return null;
 }
@@ -82,9 +108,10 @@ than introducing runtime database reads into marketing pages.
 
 ## Contact contract
 
-The future form calls `submitContact` in `lib/contact/client.ts`. Input is JSON:
-`name`, `email`, `message`, optional `company`, optional `website`. The website
-field is a honeypot: keep it empty, hidden from people and screen readers,
+The contact page form calls `submitContact` in `lib/contact/client.ts`. Input is
+JSON: `name`, `email`, `message`, optional `company`, optional `nda` (boolean,
+stored as `nda_requested`; run `pnpm db:migrate` to add the column), optional
+`website`. The website field is a honeypot: keep it empty, hidden from people and screen readers,
 out of the tab order, and with autofill disabled. The server normalizes fields
 and returns `{ ok: true }` or `{ ok: false, error, fieldErrors? }`.
 

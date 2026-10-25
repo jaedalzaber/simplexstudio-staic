@@ -1,0 +1,60 @@
+.filters {
+  --tab-h: clamp(52px, 4.4vw, 63px);
+  --tab-pad: clamp(28px, 3.2vw, 46px);
+  --tab-font: clamp(17px, 1.55vw, 22px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding-inline: var(--gutter);
+  animation: fadeUp 1.2s var(--ease-out-expo) 0.4s both;
+}
+
+.filters[data-size="md"] {
+  --tab-h: clamp(44px, 3.4vw, 50px);
+  --tab-pad: clamp(20px, 2vw, 28px);
+  --tab-font: clamp(15px, 1.15vw, 17px);
+  gap: 8px;
+}
+
+.filter {
+  position: relative;
+  isolation: isolate;
+  min-height: var(--tab-h);
+  padding: 0 var(--tab-pad);
+  border: 1px solid #dde6f4;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.9);
+  color: var(--color-ink);
+  font-size: var(--tab-font);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: border-color 400ms ease, transform 500ms var(--ease-out-expo);
+}
+
+.fill {
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  border-radius: inherit;
+  background: var(--color-ink);
+}
+
+.label { position: relative; transition: color 400ms ease; }
+.filter[aria-pressed="true"] { border-color: transparent; }
+.filter[aria-pressed="true"] .label { color: var(--color-paper); }
+.filter:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+@media (hover: hover) {
+  .filter[aria-pressed="false"]:hover { border-color: #b9cbe6; transform: translateY(-2px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 520px) {
+  .filters { gap: 8px; padding-inline: 12px; }
+  .filters[data-size="lg"] { --tab-h: 46px; --tab-pad: 18px; --tab-font: 16px; }
+}

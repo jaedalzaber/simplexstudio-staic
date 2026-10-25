@@ -1,4 +1,5 @@
 import { pages } from "@/content/pages";
+import { solutionHref, solutions } from "@/content/solutions";
 import type { Route } from "next";
 
 export interface NavigationLink {
@@ -35,6 +36,7 @@ export const primaryNavigation: readonly NavigationItem[] = [
   { label: "Solutions", href: pages.services.path, menu: "solutions" },
   { label: "Work", href: pages.work.path },
   { label: "About", href: pages.about.path },
+  { label: "Blog", href: pages.blog.path },
   { label: "Pricing", href: pages.pricing.path },
 ];
 
@@ -92,16 +94,11 @@ export const capabilityGroups: readonly CapabilityGroup[] = [
   },
 ];
 
-const solution = (label: string, image: string): SolutionLink => ({ label, href: pages.services.path, image: `/images/solutions/${image}.webp` });
-
-export const solutionLinks: readonly SolutionLink[] = [
-  solution("eCommerce", "ecommerce"),
-  solution("Property Management", "property-management"),
-  solution("Booking System", "booking-system"),
-  solution("Industrial ERP", "industrial-erp"),
-  solution("SaaS Launch", "saas-launch"),
-  solution("Product Launch", "product-launch"),
-];
+export const solutionLinks: readonly SolutionLink[] = solutions.map((solution) => ({
+  label: solution.title,
+  href: solutionHref(solution),
+  image: solution.image.src,
+}));
 
 export const footerNavigation: readonly FooterGroup[] = [
   {

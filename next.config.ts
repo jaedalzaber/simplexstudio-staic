@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   cacheComponents: true,
   partialPrefetching: true,
+  async redirects() {
+    // The Property Management solution became Real Estate.
+    return [{ source: "/services/property-management", destination: "/services/real-estate", permanent: true }];
+  },
   turbopack: {
     rules: {
       // Keep CSS Modules on Next.js's native pipeline. Renaming every CSS

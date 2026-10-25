@@ -37,8 +37,8 @@ export async function saveContactSubmission(submission: ContactSubmission, reque
           THEN now() ELSE simplex.contact_rate_limits.window_started_at END
     `),
     sql`
-      INSERT INTO simplex.contact_submissions (name, email, company, message)
-      SELECT ${submission.name}, ${submission.email}, ${submission.company}, ${submission.message}
+      INSERT INTO simplex.contact_submissions (name, email, company, message, nda_requested)
+      SELECT ${submission.name}, ${submission.email}, ${submission.company}, ${submission.message}, ${submission.nda}
       WHERE NOT EXISTS (
         SELECT 1 FROM simplex.contact_rate_limits
         WHERE key_hash = ANY(${keys}::text[]) AND attempts > 5

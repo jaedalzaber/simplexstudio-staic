@@ -54,14 +54,44 @@ export function PillLink({ children, tone = "dark", size = "lg", magnetic = true
       data-tone={tone}
       data-size={size}
     >
+      <PillContent label={children} />
+    </Link>
+  );
+}
+
+function PillContent({ label }: { label: string }) {
+  return (
+    <>
       <span className={styles.dot} aria-hidden="true" />
       <span className={styles.label} aria-hidden="true">
-        <span className={styles.labelTrack} data-text={children}>{children}</span>
+        <span className={styles.labelTrack} data-text={label}>{label}</span>
       </span>
       <span className={styles.arrow} aria-hidden="true">
         <ArrowUpRightIcon />
         <ArrowUpRightIcon />
       </span>
-    </Link>
+    </>
+  );
+}
+
+type PillButtonProps = Omit<ComponentProps<"button">, "children"> & {
+  children: string;
+  tone?: "dark" | "light";
+  size?: "sm" | "md" | "lg";
+};
+
+/** The same capsule as a `<button>`, for forms. */
+export function PillButton({ children, tone = "dark", size = "md", type = "button", className, ...props }: PillButtonProps) {
+  return (
+    <button
+      {...props}
+      type={type}
+      aria-label={props["aria-label"] ?? children}
+      className={classes(styles.pill, className)}
+      data-tone={tone}
+      data-size={size}
+    >
+      <PillContent label={children} />
+    </button>
   );
 }

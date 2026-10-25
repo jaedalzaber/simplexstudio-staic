@@ -1,0 +1,33 @@
+.nav { border-top: 1px solid var(--color-line); }
+.title { margin: 0; padding: 18px 0 14px; border-bottom: 1px solid var(--color-line); color: var(--color-ink); font-size: 17px; }
+
+.list {
+  max-height: var(--spy-max-height, 260px);
+  margin: 0;
+  padding: 14px 6px 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: #c9d5e6 transparent;
+  scrollbar-width: thin;
+  list-style: none;
+}
+
+.list a {
+  position: relative;
+  display: block;
+  padding: 8px 0 8px 28px;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 300ms ease, transform 500ms var(--ease-out-expo);
+}
+.list a[data-current="true"] { color: #3c7fd0; }
+.list a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+
+.marker { position: absolute; top: 10px; left: 0; display: grid; width: 18px; height: 18px; place-items: center; color: #3c7fd0; }
+.marker svg { width: 16px; height: 16px; }
+
+@media (hover: hover) {
+  .list a[data-current="false"]:hover { color: var(--color-ink); transform: translateX(3px); }
+}

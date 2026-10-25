@@ -17,6 +17,12 @@ test("normalizes input and defaults optional fields", () => {
   assert.equal(result.email, valid.email);
   assert.equal(result.company, "");
   assert.equal(result.website, "");
+  assert.equal(result.nda, false);
+});
+
+test("accepts an NDA request and rejects non-boolean values", () => {
+  assert.equal(contactSchema.parse({ ...valid, nda: true }).nda, true);
+  assert.equal(contactSchema.safeParse({ ...valid, nda: "yes" }).success, false);
 });
 
 test("rejects invalid email, whitespace, oversized fields, unknown keys, and nonobjects", () => {

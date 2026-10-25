@@ -1,16 +1,16 @@
 import type { CSSProperties } from "react";
 import { PillLink } from "@/components/ui/pill-link";
 import { ServicePill } from "@/components/ui/service-pill";
+import { SkyBackdrop } from "@/components/ui/sky-backdrop";
 import { heroServices } from "@/content/home";
 import { pages } from "@/content/pages";
-import { HeroBackdrop } from "./hero-backdrop";
 import styles from "./hero.module.css";
 
 export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.panel}>
-        <HeroBackdrop />
+        <SkyBackdrop />
         <div className={styles.copy}>
           <h1 id="hero-title" className={styles.title}>
             <span className={styles.line}><span>Scaling &amp; digital</span></span>

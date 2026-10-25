@@ -1,0 +1,130 @@
+.hero { padding: var(--panel-inset) var(--panel-inset) 0; }
+
+.panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--panel-radius-xl);
+  padding-bottom: clamp(8px, 1.5vw, 20px);
+}
+
+.inner {
+  --card-w: clamp(150px, 20.4vw, 293px);
+  --card-h: calc(var(--card-w) * 2.05);
+  --gap: clamp(6px, 0.7vw, 10px);
+  --card-radius: clamp(18px, 2.1vw, 30px);
+  position: relative;
+  display: grid;
+  grid-template-areas: "stack";
+  align-items: start;
+  padding-top: calc(var(--header-height) + clamp(0px, 0.6vw, 10px));
+}
+
+.titleWrap {
+  position: relative;
+  z-index: 2;
+  grid-area: stack;
+  justify-self: start;
+  padding-top: clamp(64px, 7.8vw, 112px);
+  padding-left: clamp(0px, 1.5vw, 22px);
+  pointer-events: none;
+}
+
+.title, .titleOverlay {
+  display: block;
+  max-width: 11.2em;
+  margin: 0;
+  font-size: clamp(2.4rem, 4.45vw, 4rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.title { color: var(--color-ink); animation: fadeUp 1.2s var(--ease-out-expo) 0.1s both; }
+
+/* Same text in white, revealed only where the photo card sits beneath it. */
+.titleOverlay {
+  position: absolute;
+  top: clamp(64px, 7.8vw, 112px);
+  left: clamp(0px, 1.5vw, 22px);
+  color: var(--color-paper);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 800ms var(--ease-out-expo);
+}
+
+.columns {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-area: stack;
+  grid-template-columns: repeat(3, var(--card-w));
+  justify-self: end;
+  gap: var(--gap);
+  height: var(--card-h);
+  margin-right: clamp(0px, 1.2vw, 17px);
+  animation: fadeUp 1.2s var(--ease-out-expo) 0.3s both;
+}
+
+.card {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: var(--card-w);
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  background: #262b35;
+  clip-path: inset(100% 0 0 0 round var(--card-radius));
+  transform: translateX(calc(var(--active) * (var(--card-w) + var(--gap))));
+  transition: clip-path 800ms var(--ease-out-expo), transform 800ms var(--ease-out-expo);
+  pointer-events: none;
+}
+.card[data-visible="true"] { clip-path: inset(0 0 0 0 round var(--card-radius)); }
+
+.cardImage {
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.12);
+  transition: opacity 600ms ease, transform 1200ms var(--ease-out-expo);
+}
+.cardImage[data-current="true"] { opacity: 1; transform: scale(1); }
+
+.column {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: calc(var(--card-h) * 0.075);
+  border-radius: var(--card-radius);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.word {
+  font-size: clamp(1.3rem, 2.5vw, 2.25rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  transition: color 500ms ease, transform 800ms var(--ease-out-expo);
+}
+.column[data-active="true"] .word { color: var(--color-paper); transform: translateY(-6px); }
+.column:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+.panel .clients { margin: clamp(28px, 4vw, 60px) 0 0; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 799px) {
+  .inner {
+    --card-w: calc((100vw - 2 * var(--gutter) - 2 * var(--panel-inset) - 2 * var(--gap)) / 3);
+    --card-h: calc(var(--card-w) * 1.9);
+    grid-template-areas: "title" "columns";
+  }
+  .titleWrap { grid-area: title; padding: clamp(36px, 8vw, 64px) 0 32px; }
+  .titleOverlay { top: clamp(36px, 8vw, 64px); left: 0; }
+  .columns { grid-area: columns; justify-self: center; margin-right: 0; }
+}

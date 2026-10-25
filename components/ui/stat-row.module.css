@@ -1,0 +1,47 @@
+/* Figures with a hairline rule beside each number; labels sit underneath. */
+.stats {
+  --columns: 4;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  gap: 32px 20px;
+}
+
+/* Zero specificity, so a caller's class can set the spacing. */
+:where(.stats) { margin: 0; }
+
+.stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: clamp(14px, 1.6vw, 24px); }
+
+.stat dd {
+  position: relative;
+  margin: 0;
+  padding-left: clamp(14px, 1.4vw, 20px);
+  color: var(--color-ink);
+  font-size: clamp(2.4rem, 4.2vw, 3.75rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.stat dd::before {
+  position: absolute;
+  top: -0.05em;
+  bottom: -0.05em;
+  left: 0;
+  width: 1px;
+  background: #e3e6eb;
+  content: "";
+}
+
+.stat dt {
+  max-width: 190px;
+  padding-left: clamp(14px, 1.4vw, 20px);
+  color: #8a94a0;
+  font-size: clamp(13px, 1.25vw, 18px);
+  letter-spacing: -0.01em;
+  line-height: 1.28;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

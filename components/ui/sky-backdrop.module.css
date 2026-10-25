@@ -1,0 +1,73 @@
+.backdrop {
+  --light-x: 50;
+  --light-y: 30;
+  position: absolute;
+  z-index: -1;
+  inset: -60px;
+  background: var(--color-sky);
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+.blob[data-blob="left"] {
+  top: 18%;
+  left: -14%;
+  width: 46%;
+  aspect-ratio: 1.2;
+  background: radial-gradient(closest-side, #bcd5fa 0%, rgb(196 218 251 / 0.65) 45%, rgb(214 230 252 / 0) 100%);
+}
+.blob[data-blob="right"] {
+  top: 8%;
+  right: -16%;
+  width: 48%;
+  aspect-ratio: 1.15;
+  background: radial-gradient(closest-side, #c3d9fb 0%, rgb(204 223 252 / 0.6) 48%, rgb(214 230 252 / 0) 100%);
+}
+.blob[data-blob="low"] {
+  bottom: -30%;
+  left: 24%;
+  width: 52%;
+  aspect-ratio: 1.6;
+  background: radial-gradient(closest-side, rgb(214 230 253 / 0.9), rgb(228 238 253 / 0));
+}
+.blob[data-blob="top"] {
+  top: -24%;
+  left: 30%;
+  width: 40%;
+  aspect-ratio: 1.4;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0));
+}
+
+.light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(520px circle at calc(var(--light-x) * 1%) calc(var(--light-y) * 1%), rgb(255 255 255 / 0.55), transparent 65%);
+  mix-blend-mode: soft-light;
+}
+
+/* Fine grain keeps the gradients from banding, as in the reference artwork. */
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.55 0 0 0 0 0.85 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+}
+
+.fade {
+  position: absolute;
+  z-index: -1;
+  top: var(--panel-inset);
+  right: var(--panel-inset);
+  left: var(--panel-inset);
+  height: var(--sky-height);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--panel-radius-xl);
+  mask-image: linear-gradient(180deg, #000 0 52%, transparent 100%);
+  pointer-events: none;
+}

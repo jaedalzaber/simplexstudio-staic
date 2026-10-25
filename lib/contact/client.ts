@@ -1,6 +1,6 @@
 import type { ContactInput, ContactResult } from "./schema";
 
-// No UI yet. Call this from the future contact form's submit handler.
+// Called by the contact page form (components/sections/contact/contact-form.tsx).
 export async function submitContact(input: ContactInput, signal?: AbortSignal): Promise<ContactResult> {
   try {
     const response = await fetch("/api/contact", {

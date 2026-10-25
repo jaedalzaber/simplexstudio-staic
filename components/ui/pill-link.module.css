@@ -14,8 +14,10 @@
   gap: clamp(14px, 1.3vw, 19px);
   padding: 0 calc(var(--pill-pad) - 6px) 0 var(--pill-pad);
   overflow: hidden;
+  border: 0;
   border-radius: var(--radius-pill);
   background: var(--pill-bg);
+  cursor: pointer;
   color: var(--pill-text);
   font-size: var(--pill-font);
   font-weight: 400;
@@ -128,6 +130,7 @@
 }
 
 .pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.pill:disabled { cursor: progress; opacity: 0.6; }
 
 @keyframes pulse {
   0% { opacity: 0.9; transform: scale(0.4); }

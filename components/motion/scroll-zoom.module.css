@@ -1,0 +1,10 @@
+.frame {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--panel-radius-xl);
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.frame > * { transform-origin: 50% 50%; }

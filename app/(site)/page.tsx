@@ -7,6 +7,7 @@ import { Intro } from "@/components/sections/home/intro";
 import { Process } from "@/components/sections/home/process";
 import { Services } from "@/components/sections/home/services";
 import { Showreel } from "@/components/sections/home/showreel";
+import { Solutions } from "@/components/sections/home/solutions";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata("home");
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Challenges />
       <Clients />
       <Process />
+      <Solutions />
       <Services />
       <Faq />
     </>

@@ -1,0 +1,35 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(560px, 46vw, 680px);
+}
+
+.hero {
+  display: grid;
+  justify-items: center;
+  gap: clamp(16px, 1.8vw, 24px);
+  padding-top: calc(var(--header-height) + clamp(80px, 9vw, 130px));
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(3rem, 5.6vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  animation: fadeUp 1.2s var(--ease-out-expo) 0.1s both;
+}
+
+.titleSkeleton {
+  width: min(70%, 520px);
+  height: clamp(48px, 5vw, 72px);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.6);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}

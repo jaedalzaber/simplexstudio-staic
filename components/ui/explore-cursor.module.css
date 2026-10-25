@@ -1,0 +1,26 @@
+.cursor {
+  position: absolute;
+  z-index: 2;
+  right: clamp(16px, 2vw, 28px);
+  bottom: clamp(16px, 2vw, 26px);
+  display: inline-flex;
+  min-height: clamp(46px, 4vw, 56px);
+  align-items: center;
+  gap: 12px;
+  padding: 0 22px 0 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: clamp(14px, 1.25vw, 17px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  box-shadow: 0 20px 40px -18px rgb(8 11 19 / 0.45);
+  opacity: 0;
+  scale: 0.6;
+  pointer-events: none;
+  transition: opacity 400ms var(--ease-out-expo), scale 600ms var(--ease-out-expo);
+}
+.cursor i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-dot); }
+.cursor svg { width: 16px; height: 16px; }
+
+:hover > .cursor, :focus-visible > .cursor { opacity: 1; scale: 1; }

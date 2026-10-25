@@ -111,3 +111,114 @@ export function BehanceIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function ArrowLeftIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M20 12H5M11 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function PhoneIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M8.6 3.5H6.2A2.2 2.2 0 0 0 4 5.8C4.4 13.6 10.4 19.6 18.2 20a2.2 2.2 0 0 0 2.3-2.2v-2.4a1.3 1.3 0 0 0-1-1.3l-3.1-.8a1.3 1.3 0 0 0-1.3.4l-1.1 1.3a11.4 11.4 0 0 1-5-5l1.3-1.1a1.3 1.3 0 0 0 .4-1.3L9.9 4.5a1.3 1.3 0 0 0-1.3-1Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function WhatsappIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M12 2.75a9.25 9.25 0 0 0-7.98 13.93L2.9 21.1l4.5-1.1A9.25 9.25 0 1 0 12 2.75Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M8.9 7.6c.2-.4.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.2.3 0 .6.5.8 1 1.4 1.7 2 .6.5 1.3.9 1.9 1.1.3.1.4.1.6-.1l.7-.9c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.3.1.2.1.8-.2 1.4-.3.7-1.4 1.2-1.9 1.2-.5.1-1.1.2-3.4-.8-2.6-1.1-4.2-3.7-4.4-3.9-.1-.2-1-1.3-1-2.6 0-1.2.6-1.8.9-2.1Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function BriefcaseIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <rect x="3" y="7" width="18" height="13" rx="2.5" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7M3 12.5h18" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+export function CompassIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+      <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function TargetIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M20.5 11.2A8.5 8.5 0 1 1 12.8 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M16.4 11.5a4.4 4.4 0 1 1-3.9-3.9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="m12 12 6.5-6.5M15.5 5.5v3h3l2-2h-3v-3l-2 2Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function PuzzleIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M9 4.5a2 2 0 1 1 4 0V6h3.5A1.5 1.5 0 0 1 18 7.5V11h1.5a2 2 0 1 1 0 4H18v3.5a1.5 1.5 0 0 1-1.5 1.5H13v-1.5a2 2 0 1 0-4 0V20H5.5A1.5 1.5 0 0 1 4 18.5V15h1.5a2 2 0 1 0 0-4H4V7.5A1.5 1.5 0 0 1 5.5 6H9V4.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function CalendarIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function ClockIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <circle cx="12" cy="12" r="8.75" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12 7.5V12l3 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function XLogoIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M17.6 3.5h3l-6.6 7.5 7.8 9.5h-6.1l-4.8-6-5.5 6H2.4l7-7.9L2 3.5h6.2l4.3 5.5 5.1-5.5Zm-1 15.3h1.7L7.4 5.1H5.6l11 13.7Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function CheckIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function PlusIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function MinusIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}

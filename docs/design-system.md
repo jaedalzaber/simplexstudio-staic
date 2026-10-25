@@ -6,8 +6,9 @@ the Capabilities groups (with their icons from `public/icons`), the Solutions
 image grid, and the footer columns live in `config/navigation.ts`. The footer
 is shared by every page through `SiteShell`.
 
-The header is fixed: it is transparent at the top of the home page, where it
-sits inside the hero panel, and becomes a frosted white bar after 12 pixels of
+The header is fixed: it is transparent at the top of the home, Work (including
+case studies), About, Blog (including articles), and Contact pages, where it sits inside the sky hero
+(`immersiveRoutes` in `header.tsx`), and becomes a frosted white bar after 12 pixels of
 scrolling. It slides away while scrolling down and returns on any upward
 scroll. Open menus join their toggle with a white folder tab. Header spacing is
 reserved on other pages; home cover content starts at the top of `main`.
@@ -65,6 +66,19 @@ when event handlers or browser state are needed. Button targets are at least
 - `ServicePill`: "View Service" capsule whose artwork fades in and whose arrow
   knob travels across on hover; light and dark tones.
 - `Eyebrow`: dot-led uppercase section label.
+- `PillButton`: the `PillLink` capsule as a `<button>`, for forms.
+- `Media`: renders an `ImageSlot`, or a grey placeholder with the same
+  proportions until the slot has a `src`.
+- `SkyBackdrop`: the drifting light-blue clouds behind heroes; `SkyFade` is a
+  rounded sky panel that fades to white behind content that runs past it.
+  Mark the page wrapper with `data-sky-scope` so the clouds follow the pointer.
+- `StatRow`: counting figures with hairline rules (home, About, case studies).
+- `ExploreCursor`: "Explore case" capsule that trails the pointer over media.
+- `FilterTabs`: pill category filter whose dark fill glides to the chosen
+  option (Work and Blog).
+- `ScrollSpyNav`: in-page section list that highlights the section in view
+  (article table of contents, home Solutions index).
+- `TalkCard`: small dark "Let’s talk" call-to-action card for sidebars.
 
 Keep section data in `content/` and markup in `components/sections/`.
 Compose sections in pages. Reuse semantic tokens and primitives; use isolated

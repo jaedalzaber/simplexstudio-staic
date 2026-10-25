@@ -5,7 +5,9 @@ export const contactSchema = z.strictObject({
   email: z.string().trim().toLowerCase().max(254).pipe(z.email("Enter a valid email address.")),
   company: z.string().trim().max(160, "Use 160 characters or fewer.").optional().default(""),
   message: z.string().trim().min(10, "Use at least 10 characters.").max(5000, "Use 5,000 characters or fewer."),
-  // Leave empty. The future form should hide this from humans and autofill.
+  // The visitor asked for a non-disclosure agreement before sharing details.
+  nda: z.boolean().optional().default(false),
+  // Honeypot: the contact form hides this from people and autofill; leave it empty.
   website: z.string().max(200).optional().default(""),
 });
 

@@ -28,6 +28,17 @@ function subscribeToMobile(callback: () => void) {
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+// Pages whose hero starts at the top of the viewport under a transparent header.
+const immersiveRoutes = ["/work", "/about", "/blog", "/contact"];
+// Only the detail pages below these (e.g. /services/ecommerce), not the index.
+const immersiveSections = ["/services"];
+
+function isImmersive(pathname: string) {
+  return pathname === "/"
+    || immersiveRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`))
+    || immersiveSections.some((route) => pathname.startsWith(`${route}/`));
+}
+
 const desktopPanel: Variants = {
   hidden: { opacity: 0, y: -8, scale: 0.985, filter: "blur(6px)" },
   show: {
@@ -125,7 +136,8 @@ export function Header() {
 
   useEffect(() => () => window.clearTimeout(closeTimer.current), []);
 
-  const transparent = pathname === "/" && !scrolled && !mobileOpen;
+  const immersive = isImmersive(pathname);
+  const transparent = immersive && !scrolled && !mobileOpen;
 
   return (
     <>
@@ -266,7 +278,7 @@ export function Header() {
           </button>
         </Container>
       </header>
-      {pathname !== "/" && <div className={styles.spacer} aria-hidden="true" />}
+      {!immersive && <div className={styles.spacer} aria-hidden="true" />}
     </>
   );
 }

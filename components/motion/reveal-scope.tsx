@@ -4,7 +4,7 @@ import { useRef, type HTMLAttributes, type ReactNode } from "react";
 import { gsap, motionQuery, SplitText, useGSAP } from "@/lib/gsap";
 
 type RevealScopeProps = HTMLAttributes<HTMLElement> & {
-  as?: "div" | "section" | "footer";
+  as?: "div" | "section" | "article" | "footer";
   children: ReactNode;
 };
 
