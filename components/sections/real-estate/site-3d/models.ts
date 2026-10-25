@@ -1,7 +1,7 @@
 import type { HomeConfig, HomeFinish, Plot } from "@/content/real-estate";
-import type { Box } from "./bake";
+import type { Box } from "@/lib/three/bake";
 import { PARKING, PIER, TOWER, rectCenter, shapeRect, type Rect } from "./layout";
-import { mulberry32, seedFrom, type Random } from "./noise";
+import { mulberry32, seedFrom, type Random } from "@/lib/three/noise";
 
 // Box massing for every building. Homes are modelled in a local frame
 // (+z towards the street, origin at the plot centre) and placed by a frame.

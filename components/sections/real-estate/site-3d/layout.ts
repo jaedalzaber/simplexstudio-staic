@@ -1,5 +1,6 @@
 import { Color, Vector3 } from "three";
-import { fbm2, smoothstep } from "./noise";
+import type { Lighting } from "@/lib/three/bake";
+import { fbm2, smoothstep } from "@/lib/three/noise";
 
 // World space is metres: x east, z south, y up. The development keeps the
 // sample plan's 800 × 520 viewBox, so the 2D and 3D plans always agree.
@@ -41,6 +42,8 @@ export function bakedLight(target: Color, sun: number, sky: number, bounce: numb
     SUN_COLOR.b * sun + SKY_COLOR.b * sky + BOUNCE_COLOR.b * bounce,
   );
 }
+/** Sun and sky for baking homes, the tower and props. */
+export const SITE_LIGHTING: Lighting = { sun: [SUN.x, SUN.y, SUN.z], light: bakedLight };
 /** Ground offset of a shadow cast from a height of 1 m. */
 export const SHADOW_STEP: Point = [-SUN.x / SUN.y, -SUN.z / SUN.y];
 /** Haze the scene fades into; matches the page's sky. */

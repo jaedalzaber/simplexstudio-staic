@@ -20,10 +20,10 @@ import {
 } from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import type { HomeConfig, Plot, Unit } from "@/content/real-estate";
-import { bakeBoxes, bakedGeometry, createBakedMaterial } from "./bake";
-import { HAZE, TOWER, rectCenter, shapeRect, type Rect } from "./layout";
+import { bakeBoxes, bakedGeometry, createBakedMaterial } from "@/lib/three/bake";
+import { HAZE, SITE_LIGHTING, TOWER, rectCenter, shapeRect, type Rect } from "./layout";
 import { buildHome, buildProps, buildTower, type HomeModel } from "./models";
-import { mulberry32 } from "./noise";
+import { mulberry32 } from "@/lib/three/noise";
 import { createHighlight, createPad, type Pad } from "./overlays";
 import { paintSite } from "./paint";
 import { createGround, createLake, createSky } from "./terrain";
@@ -72,7 +72,7 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const sameConfig = (a: HomeConfig, b: HomeConfig) => a.design === b.design && a.finish === b.finish && a.pool === b.pool && a.solar === b.solar;
 const selectionKey = (selection: SiteSelection) => (!selection ? "" : selection.kind === "plot" ? `plot:${selection.id}` : `building:${selection.floor ?? ""}:${selection.unit ?? ""}`);
 const pickKey = (target: PickTarget | null) => (target ? JSON.stringify(target) : "");
-const bakeHome = (model: HomeModel) => bakedGeometry([bakeBoxes(model.boxes, { cell: 0.75, samples: 12 })]);
+const bakeHome = (model: HomeModel) => bakedGeometry([bakeBoxes(model.boxes, { lighting: SITE_LIGHTING, cell: 0.75, samples: 12 })]);
 
 export async function createSiteScene(options: SiteSceneOptions): Promise<SiteScene> {
   const { container, plots, units, signal } = options;
@@ -132,11 +132,11 @@ export async function createSiteScene(options: SiteSceneOptions): Promise<SiteSc
     const floors = options.building.floors;
     const towerTop = floors * TOWER.floorHeight;
     const towerBoxes = buildTower(floors);
-    const tower = new Mesh(bakedGeometry([bakeBoxes(towerBoxes, { cell: 1.5, samples: 10, radius: 4 })]), createBakedMaterial());
+    const tower = new Mesh(bakedGeometry([bakeBoxes(towerBoxes, { lighting: SITE_LIGHTING, cell: 1.5, samples: 10, radius: 4 })]), createBakedMaterial());
     const buildingRect = shapeRect(options.building.shape);
     const buildingPad = createPad(buildingRect, "Available");
     const propBoxes = buildProps(mulberry32(5));
-    const props = new Mesh(bakedGeometry([bakeBoxes(propBoxes, { cell: 0.7, samples: 10 })]), createBakedMaterial());
+    const props = new Mesh(bakedGeometry([bakeBoxes(propBoxes, { lighting: SITE_LIGHTING, cell: 0.7, samples: 10 })]), createBakedMaterial());
     scene.add(tower, buildingPad, props);
     await pause();
     check();

@@ -222,3 +222,57 @@ export function MinusIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function BedIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M3 5.5v14M3 15h18v4.5M21 15v-3a3 3 0 0 0-3-3h-7.5v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="5.5" y="10" width="3" height="2.5" rx="1.25" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+export function DeskIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <rect x="7.5" y="3.5" width="9" height="6.5" rx="1.25" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12 10v3.5M3 13.5h18M5 13.5v7M19 13.5v7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function CutleryIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M6 3.5v5a2.75 2.75 0 0 0 5.5 0v-5M8.75 3.5v17M17.5 20.5v-17c-2 1.4-3.25 3.9-3.25 7v3.25h3.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ToothIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <path d="M7.5 4C5 4 4 6 4 8.2c0 2.2 1 3.3 1.5 5.3.6 2.4.8 6.5 2.6 6.5 1.6 0 1.6-4.8 3.9-4.8s2.3 4.8 3.9 4.8c1.8 0 2-4.1 2.6-6.5.5-2 1.5-3.1 1.5-5.3C20 6 19 4 16.5 4c-1.8 0-2.7 1-4.5 1S9.3 4 7.5 4Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ConsultationIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <circle cx="9" cy="9" r="3.25" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M3.5 20c.6-3 2.8-4.75 5.5-4.75s4.9 1.75 5.5 4.75M15 3.5h4.5A1.5 1.5 0 0 1 21 5v3a1.5 1.5 0 0 1-1.5 1.5H18l-2 1.75V9.5h-1A1.5 1.5 0 0 1 13.5 8V5A1.5 1.5 0 0 1 15 3.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function BusIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={24} height={24} {...base} {...props}>
+      <rect x="5" y="3.5" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M5 11h14M8 17.5v3M16 17.5v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="8.5" cy="14.25" r="1" fill="currentColor" />
+      <circle cx="15.5" cy="14.25" r="1" fill="currentColor" />
+    </svg>
+  );
+}

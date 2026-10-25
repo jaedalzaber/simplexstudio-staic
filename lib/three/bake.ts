@@ -1,9 +1,9 @@
 import { BufferAttribute, BufferGeometry, Color, ShaderMaterial, UniformsLib, UniformsUtils } from "three";
-import { SUN, bakedLight } from "./layout";
 
-// Light baking for box-built models. Every building, car and prop is a set of
-// axis-aligned boxes, so a tiny ray tracer can bake sun shadows, sky occlusion
-// and ground bounce into vertex colours once, at load. Rendering is then unlit.
+// Light baking for box-built models. Every building, car, prop and piece of
+// furniture is a set of axis-aligned boxes, so a tiny ray tracer can bake key
+// light shadows, sky occlusion and ground bounce into vertex colours once, at
+// load. Rendering is then unlit.
 
 export type Vec3 = [x: number, y: number, z: number];
 export interface Box {
@@ -20,7 +20,21 @@ export interface BakedMesh {
   indices: number[];
 }
 
+/** The light a scene is baked with. */
+export interface Lighting {
+  /** Unit vector towards the key light (the sun outdoors). */
+  sun: Vec3;
+  /**
+   * Sets `target` to the light reaching a surface from the key light, sky and ground
+   * bounce at the given strengths. `point` and `normal` allow local light, such as lamps.
+   */
+  light(target: Color, sun: number, sky: number, bounce: number, point: Vec3, normal: Vec3): Color;
+}
+
 interface BakeOptions {
+  lighting: Lighting;
+  /** Boxes that shade the baked boxes without being part of the mesh. */
+  occluders?: readonly Box[];
   /** Largest cell edge in metres; smaller cells give smoother shadows. */
   cell?: number;
   /** Sky occlusion rays per vertex. */
@@ -43,11 +57,13 @@ function hemisphere(count: number): Vec3[] {
 }
 
 // Three slightly spread sun rays soften the shadow edges.
-const SUN_RAYS: Vec3[] = [[0, 0, 0], [0.03, -0.01, -0.025], [-0.025, 0.012, 0.03]].map(([x, y, z]) => {
-  const v = [SUN.x + x, SUN.y + y, SUN.z + z];
-  const length = Math.hypot(v[0], v[1], v[2]);
-  return [v[0] / length, v[1] / length, v[2] / length];
-});
+function sunRays(sun: Vec3): Vec3[] {
+  return [[0, 0, 0], [0.03, -0.01, -0.025], [-0.025, 0.012, 0.03]].map(([x, y, z]) => {
+    const v = [sun[0] + x, sun[1] + y, sun[2] + z];
+    const length = Math.hypot(v[0], v[1], v[2]);
+    return [v[0] / length, v[1] / length, v[2] / length];
+  });
+}
 
 const safe = (value: number) => (Math.abs(value) < 1e-6 ? 1e-6 : value);
 
@@ -97,13 +113,18 @@ function splits(lo: number, hi: number, axis: number, bounds: Float64Array, list
   return out;
 }
 
-export function bakeBoxes(boxes: readonly Box[], options: BakeOptions = {}): BakedMesh {
+export function bakeBoxes(boxes: readonly Box[], options: BakeOptions): BakedMesh {
+  const { lighting } = options;
+  const key = lighting.sun;
+  const keyRays = sunRays(key);
   const cell = options.cell ?? 0.6;
   const radius = options.radius ?? 3.5;
   const sky = hemisphere(options.samples ?? 18);
-  const count = boxes.length;
+  // Occluders follow the baked boxes, so box indices still match `boxes`.
+  const shading = [...boxes, ...(options.occluders ?? [])];
+  const count = shading.length;
   const bounds = new Float64Array(count * 6);
-  boxes.forEach((box, index) => bounds.set([...box.min, ...box.max], index * 6));
+  shading.forEach((box, index) => bounds.set([...box.min, ...box.max], index * 6));
   const all = Int32Array.from({ length: count }, (_, index) => index);
   const near = new Int32Array(count);
   const albedo = new Color();
@@ -174,11 +195,11 @@ export function bakeBoxes(boxes: readonly Box[], options: BakeOptions = {}): Bak
         }
         const ao = 1 - occlusion / sky.length;
         let sun = 0;
-        const facing = Math.max(0, normal[0] * SUN.x + normal[1] * SUN.y + normal[2] * SUN.z);
-        if (facing > 0) for (const ray of SUN_RAYS) if (trace(o, ray, 400, bounds, all, count, false) >= 400) sun += 1 / SUN_RAYS.length;
+        const facing = Math.max(0, normal[0] * key[0] + normal[1] * key[1] + normal[2] * key[2]);
+        if (facing > 0) for (const ray of keyRays) if (trace(o, ray, 400, bounds, all, count, false) >= 400) sun += 1 / keyRays.length;
 
         const up = normal[1];
-        bakedLight(light, facing * sun, ao * (0.62 + 0.38 * up), ao * (up > 0.5 ? 0 : 1));
+        lighting.light(light, facing * sun, ao * (0.62 + 0.38 * up), ao * (up > 0.5 ? 0 : 1), p, normal);
         let r = albedo.r * light.r;
         let g = albedo.g * light.g;
         let b = albedo.b * light.b;

@@ -1,0 +1,40 @@
+/* Interface views in a dark band: captions as tabs beside one large view. */
+
+.views {
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(16px, 2vw, 28px);
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.tabs { display: grid; gap: 10px; }
+.tabs button {
+  display: grid;
+  gap: 6px;
+  padding: clamp(18px, 1.8vw, 24px);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 20px;
+  background: rgb(255 255 255 / 0.03);
+  color: var(--color-paper);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 400ms ease, border-color 400ms ease;
+}
+.tabs button[aria-selected="true"] { border-color: rgb(120 185 245 / 0.55); background: rgb(255 255 255 / 0.08); }
+.tabs button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.tabs strong { font-size: clamp(18px, 1.6vw, 22px); font-weight: 400; letter-spacing: -0.02em; }
+.index { color: #7c8597; font-size: 13px; }
+.text { color: #b4bed0; font-size: 14.5px; line-height: 1.5; }
+
+@media (hover: hover) {
+  .tabs button[aria-selected="false"]:hover { border-color: rgb(255 255 255 / 0.24); background: rgb(255 255 255 / 0.05); }
+}
+
+.stage { min-width: 0; }
+.panel { min-width: 0; }
+
+@media (max-width: 899px) {
+  .views { grid-template-columns: 1fr; }
+}

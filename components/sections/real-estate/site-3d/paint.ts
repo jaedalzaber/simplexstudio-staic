@@ -1,5 +1,5 @@
 import { DataTexture, LinearFilter, LinearMipmapLinearFilter, RGBAFormat, UnsignedByteType } from "three";
-import type { Box } from "./bake";
+import type { Box } from "@/lib/three/bake";
 import {
   LAKE,
   PARK_LOOP,

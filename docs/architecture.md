@@ -68,9 +68,16 @@ headings feed the table of contents. Each article also emits `BlogPosting`
 JSON-LD.
 
 `/services/[slug]` holds one page per solution in `content/solutions.ts`
-(eCommerce, Real Estate, and so on). eCommerce and Real Estate have their own
-full pages (`app/(site)/services/ecommerce` and `.../real-estate`, marked
-`ownPage`); the old `/services/property-management` URL redirects permanently to
+(eCommerce, Real Estate, and so on). eCommerce, Real Estate, Booking Systems and
+Manufacturing & Logistics have their own full pages (`app/(site)/services/ecommerce`,
+`.../real-estate`, `.../booking-system` and `.../industrial-erp`, marked
+`ownPage`). The booking and factory demos run on sample data in
+`content/booking-demo.ts` and `content/factory-demo.ts`, which are deterministic
+so the server and browser agree and `tests/` can check them. All 3D views bake
+light into box-built models with `lib/three/bake.ts`, each passing its own
+lighting; the booking and factory views share the interactive stage in
+`lib/three/stage.ts` (renderer, camera rules, picking, labels, on-demand
+rendering). The old `/services/property-management` URL redirects permanently to
 `/services/real-estate` (see `next.config.ts`). The others are deliberately
 blank for now, a hero with the name only, and stay out of search results until the
 Services page is published. The same file feeds the home Solutions section and

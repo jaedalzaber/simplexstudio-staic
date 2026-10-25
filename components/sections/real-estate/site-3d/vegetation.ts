@@ -36,7 +36,7 @@ import {
   type Point,
 } from "./layout";
 import type { TreeKind, TreeSpot } from "./models";
-import { fbm2, mulberry32, type Random } from "./noise";
+import { fbm2, mulberry32, type Random } from "@/lib/three/noise";
 
 // Low-poly trees with faceted, baked light. One instanced mesh per species
 // and level of detail keeps thousands of trees to a handful of draw calls.

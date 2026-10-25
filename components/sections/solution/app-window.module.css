@@ -1,0 +1,27 @@
+/* Window chrome for sample interface screens on solution pages. The window is a
+   size container, so type and spacing in cqi inside it scale like a picture. */
+
+.window {
+  overflow: hidden;
+  border: 1px solid #e1e7ef;
+  border-radius: clamp(12px, 1.2vw, 18px);
+  background: var(--color-paper);
+  box-shadow: 0 40px 80px -46px rgb(8 11 19 / 0.6);
+  color: var(--color-ink);
+  text-align: left;
+  container-type: inline-size;
+}
+
+.windowBar { display: flex; align-items: center; gap: 1.6cqi; padding: 1.3cqi 2cqi; border-bottom: 1px solid #edf1f6; background: #f7f9fc; font-size: clamp(8px, 1.45cqi, 13px); white-space: nowrap; }
+.windowBar strong { font-weight: 600; }
+.dots { display: inline-flex; gap: 5px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: #d7dde6; }
+.windowNav { display: flex; gap: 0.4cqi; margin-left: auto; padding: 0.3cqi; border-radius: var(--radius-pill); background: #eef1f6; }
+.windowNav span { padding: 0.5cqi 1.3cqi; border-radius: var(--radius-pill); color: #6b7280; }
+.windowNav span[data-active] { background: var(--color-paper); color: var(--color-ink); box-shadow: 0 1px 2px rgb(8 11 19 / 0.1); }
+.windowAction { margin-left: auto; padding: 0.6cqi 1.5cqi; border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper); }
+.windowNav + .windowAction { margin-left: 0; }
+
+@media (max-width: 520px) {
+  .windowNav span:not([data-active]) { display: none; }
+}
