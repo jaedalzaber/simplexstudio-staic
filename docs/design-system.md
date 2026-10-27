@@ -24,8 +24,20 @@ overflow is clipped. [Lenis reference](https://github.com/darkroomengineering/le
 ## Tokens
 
 `styles/tokens.css` is the source of truth. White paper, near-black ink, mist
-surfaces, and blue accents follow the reference palette. The system font is
-temporary until the final brand font is supplied.
+surfaces, and blue accents follow the reference palette.
+
+Type is Helvetica Neue LT Std in its regular width; condensed and extended cuts
+are not used. `app/layout.tsx` self-hosts five faces from `app/fonts/` with
+`next/font/local`. Roman (400), Medium (500) and Bold (700) are preloaded on
+every page. Weights 430–480 resolve to Medium and 600 to Bold. Heavy (800, the
+home page's process word) and Italic (article captions) download only on pages
+that use them. Any other weight needs its face added there first.
+
+The WOFF2 files are converted from the desktop OpenType fonts with their
+vertical metrics rewritten: ascent 952, descent 214, line gap 0 in the hhea,
+typo and win tables. The originals put capitals high on macOS and differ per
+weight on Windows. Apply the same change to any face you add, or its text will
+sit at a different height.
 
 The shared content container is centered with a maximum width of **1330px** and
 responsive gutters. Header content uses this same `Container`; its background

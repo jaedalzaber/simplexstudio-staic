@@ -23,8 +23,8 @@
   --action-text: var(--color-paper);
   --focus: #1874bf;
   --danger: #b42318;
-  /* The reference is set in Helvetica Neue; Arial is the metric-compatible fallback. */
-  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* Helvetica Neue LT Std, self-hosted by app/layout.tsx; Arial stands in until it loads. */
+  --font-body: var(--font-helvetica-neue, "Helvetica Neue", Helvetica, Arial, sans-serif);
   --font-code: "SFMono-Regular", Consolas, monospace;
   --type-caption: 0.75rem;
   --type-small: 0.875rem;
